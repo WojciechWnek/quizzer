@@ -1,25 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState, useEffect } from "react";
+import StartScreen from "./components/StartScreen";
+import { DEFAULT_QUIZ_LENGTH, API_URL } from "./config";
+import GetApi from "./api";
+import Quiz from "./components/Quiz";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [quiz, setQuiz] = useState();
+    const [newQuiz, setNewQuiz] = useState();
+
+    // setSelectedAnswer((prevAnswers) => {
+    //     return prevAnswers.map((question) => {
+    //         return { ...question, selected: false };
+    //     });
+    // });
+
+    // console.log("App", quiz);
+
+    const startNewQuiz = () => {
+        setNewQuiz(true);
+        // setNewQuiz((prevNewQuiz) => !prevNewQuiz);
+    };
+
+    const checkAnswers = () => {};
+
+    useEffect(() => {
+        if (newQuiz) return;
+        async function fetchData() {
+            const questions = await GetApi(API_URL);
+
+            setQuiz(
+                questions.map((question, index) => {
+                    return { ...question, id: index };
+                })
+            );
+        }
+
+        fetchData();
+    }, [newQuiz]);
+
+    return (
+        <div className="App">
+            {!newQuiz ? (
+                <StartScreen startNewQuiz={startNewQuiz} />
+            ) : (
+                <Quiz checkAnswers={checkAnswers} questions={quiz} />
+            )}
+            {console.log("App", quiz)}
+        </div>
+    );
 }
 
 export default App;
