@@ -4,23 +4,19 @@ import { nanoid } from "nanoid";
 import { combineAnswers, shuffleArray } from "../utils";
 
 export default function Question(props) {
-    const correctAnswer = props.singleQuestion.correct_answer;
-    const incorrectAnswers = props.singleQuestion.incorrect_answers;
-    const shuffledAnswers = shuffleArray(
-        combineAnswers(correctAnswer, incorrectAnswers)
-    );
-
-    const answers = shuffledAnswers.map((answer, index) => {
+    const answers = props.singleQuestion.allAnswers.map((answerObject) => {
+        // console.log("answer", answerObject);
         return (
             <Answer
-                id={"Answer " + index}
                 key={nanoid()}
-                answers={answer}
-                select={(answerId) => props.select(props.id, answerId)}
+                answers={answerObject}
+                select={(answerId) =>
+                    props.select(props.singleQuestion.id, answerId)
+                }
             />
         );
     });
-
+    // console.log(props.singleQuestion.allAnswers);
     return (
         <div>
             <h3>{props.singleQuestion.question}</h3>

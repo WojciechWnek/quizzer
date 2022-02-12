@@ -1,3 +1,7 @@
+body {
+    font-family: "Karla", sans-serif;
+}
+
 .answers {
     display: flex;
     flex-direction: row;
