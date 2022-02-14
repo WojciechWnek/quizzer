@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import StartScreen from "./components/StartScreen";
-import { DEFAULT_QUIZ_LENGTH, API_URL } from "./config";
+import { API_URL } from "./config";
 import GetApi from "./api";
 import Quiz from "./components/Quiz";
 import { combineAnswers, shuffleArray } from "./utils";
