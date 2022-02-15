@@ -17,14 +17,13 @@ export default function Question(props) {
     });
 
     return (
-        <div>
+        <div className="question">
             <h3
                 dangerouslySetInnerHTML={{
                     __html: props.singleQuestion.question,
                 }}
             ></h3>
             <div className="answers">{answers}</div>
-            <hr />
         </div>
     );
 }
